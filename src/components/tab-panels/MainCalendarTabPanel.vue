@@ -41,6 +41,7 @@ const selectedDate = ref('');
 const dateMask = computed(() => dateUtils.DATE_FORMAT_SHORT());
 const events: Ref<string[]> = ref([]);
 
+
 // Initialize scroll area variables
 const scrollAreaHeight = ref(document.body.offsetHeight * 0.35);
 const appointmentList: Ref<AppointmentModel[]> = ref([]);
