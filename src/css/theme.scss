@@ -1,0 +1,88 @@
+.body--light {
+  --active: #155195;
+  --contrast-1: #FFFFFF;
+  --contrast-2: #F5F5F5;
+  --contrast-3: #EEEEEE;
+  --contrast-4: #E0E0E0;
+  --contrast-5: #BDBDBD;
+  --contrast-6: #9E9E9E;
+  --contrast-7: #757575;
+  --contrast-8: #616161;
+  --contrast-9: #424242;
+  --contrast-10: #212121;
+
+  --drawer-contrast: #EEEEEE;
+}
+
+.body--dark {
+  --q-primary: #212121;
+  --q-secondary: #efd1a9;
+  --q-accent: #F5F5F5;
+  --q-info: #FAFAFA;
+  --q-dark: #212121;
+  --q-positive: #9ac1da;
+  --q-warning: #B29C76;
+  --q-negative: #ec6464;
+
+  --active: #9ac1da;
+  --contrast-1: #212121;
+  --contrast-2: #424242;
+  --contrast-3: #616161;
+  --contrast-4: #757575;
+  --contrast-5: #9E9E9E;
+  --contrast-6: #BDBDBD;
+  --contrast-7: #E0E0E0;
+  --contrast-8: #EEEEEE;
+  --contrast-9: #F5F5F5;
+  --contrast-10: #FFFFFF;
+  --drawer-contrast: #212121;
+
+  .q-card--dark, .q-date--dark {
+    box-shadow: 0 1px 5px rgba(255, 255, 255, 0.1),
+    0 2px 2px rgba(255, 255, 255, 0.04),
+    0 3px 1px -2px rgba(255, 255, 255, 0.02)
+  }
+}
+
+.text-contrast-1 {
+  color: var(--contrast-1);
+}
+.bg-contrast-1 {
+  background-color: var(--contrast-1);
+}
+
+.text-contrast-2 {
+  color: var(--contrast-2);
+}
+.bg-contrast-2 {
+  background-color: var(--contrast-2);
+}
+
+.text-contrast-3 {
+  color: var(--contrast-3);
+}
+.bg-contrast-3 {
+  background-color: var(--contrast-3);
+}
+
+.text-contrast-4 {
+  color: var(--contrast-4);
+}
+.bg-contrast-4 {
+  background-color: var(--contrast-4);
+}
+
+.text-contrast-5 {
+  color: var(--contrast-5);
+}
+.bg-contrast-5 {
+  background-color: var(--contrast-5);
+}
+
+.text-active {
+  color: var(--active);
+}
+
+.bg-drawer-contrast {
+  background-color: var(--drawer-contrast);
+}

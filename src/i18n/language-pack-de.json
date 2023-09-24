@@ -1,3 +1,26 @@
 {
+  "library.product-name": "Appoint",
+  "library.new-appointment": "Neuer Termin",
+  "library.close": "Schließen",
+  "library.cancel": "Abbrechen",
+  "library.delete": "Löschen",
 
+  "main-calendar.title": "Hauptkalender",
+
+  "favorite-calendar.title": "Favoriten",
+
+  "calendar-overview.title": "Kalenderübersicht",
+  "calendar-overview.no-calendars-found.title": "Keine Kalender vorhanden",
+  "calendar-overview.no-calendars-found.description": "Es konnten keine Kalender gefunden werden.",
+
+  "appointment-overview.title": "Termine",
+
+  "date.format.short": "DD.MM.YYYY",
+  "date.format.short.with-weekdays": "dddd, DD.MM.YYYY",
+
+  "progress-message.load-calendars": "Die Kalender werden geladen...",
+
+  "error-message.title": "Fehler",
+  "error-message.default": "Der Systemfehler ist unbekannt.",
+  "error-message.cannot-load-calendars": "Die Kalender konnten nicht geladen werden."
 }

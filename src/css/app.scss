@@ -1,1 +1,23 @@
-// app global css in SCSS form
+/**
+ * @author Dario Nieddu <dario.nieddu@bechtle.com>
+ * All styles for html elements will be managed in this global scss file.
+ */
+@import 'background-styles';
+@import 'text-styles';
+@import 'text-fonts';
+@import 'theme';
+@import 'sizes';
+
+// Disable any scroll behavior. Scrolling will be possible only with scroll areas.
+body {
+  position: fixed;
+  overscroll-behavior: none;
+}
+
+// Scroll bar style
+.q-scrollarea__thumb {
+  right: 1px;
+  border-radius: 7px;
+  background-color: var(--q-primary);
+  width: 6px;
+}

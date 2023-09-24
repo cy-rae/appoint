@@ -1,3 +1,26 @@
 {
+  "library.product-name": "Appoint",
+  "library.new-appointment": "New appointment",
+  "library.close": "Close",
+  "library.cancel": "Cancel",
+  "library.delete": "Delete",
 
+  "main-calendar.title": "Main calendar",
+
+  "favorite-calendar.title": "Favorites",
+
+  "calendar-overview.title": "Calendar overview",
+  "calendar-overview.no-calendars-found.title": "No calendars available",
+  "calendar-overview.no-calendars-found.description": "No calendars could be found.",
+
+  "appointment-overview.title": "Appointments",
+
+  "date.format.short": "YYYY/MM/DD",
+  "date.format.short.with-weekdays": "dddd, YYYY/MM/DD",
+
+  "progress-message.load-calendars": "Loading calendars...",
+
+  "error-message.title": "Error",
+  "error-message.default": "The system error is unknown.",
+  "error-message.cannot-load-calendars": "Cannot load calendars."
 }
