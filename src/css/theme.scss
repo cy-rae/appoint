@@ -17,10 +17,10 @@
 .body--dark {
   --q-primary: #212121;
   --q-secondary: #efd1a9;
-  --q-accent: #F5F5F5;
+  --q-accent: #efd1a9;
   --q-info: #FAFAFA;
   --q-dark: #212121;
-  --q-positive: #9ac1da;
+  --q-positive: #66b779;
   --q-warning: #B29C76;
   --q-negative: #ec6464;
 
@@ -41,6 +41,17 @@
     box-shadow: 0 1px 5px rgba(255, 255, 255, 0.1),
     0 2px 2px rgba(255, 255, 255, 0.04),
     0 3px 1px -2px rgba(255, 255, 255, 0.02)
+  }
+
+  div#darken {
+    /* top, transparent black, faked with gradient */
+    background:
+      linear-gradient(
+          rgba(75, 75, 75, 0.3),
+          rgba(0,0,0, 0.5)
+      );
+    height: 100%;
+    width: 100%;
   }
 }
 

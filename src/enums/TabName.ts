@@ -1,4 +1,4 @@
-export enum TabNames {
+export enum TabName {
   MAIN_CALENDAR,
   FAVORITE_CALENDARS,
   CALENDAR_OVERVIEW,

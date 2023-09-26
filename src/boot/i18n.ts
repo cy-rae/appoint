@@ -2,7 +2,7 @@ import { boot } from 'quasar/wrappers';
 import { createI18n } from 'vue-i18n';
 
 import messages from 'src/i18n';
-import {ELanguage} from 'src/enums/ELanguage';
+import {Locale} from 'src/enums/Locale';
 
 export type MessageLanguages = keyof typeof messages;
 // Type-define 'en-US' as the master schema for the resource
@@ -24,11 +24,11 @@ declare module 'vue-i18n' {
 
 export default boot(({ app }) => {
   // Set default as english language pack.
-  let localeLang = ELanguage.EN;
+  let localeLang = Locale.EN;
 
   // If navigator language is german, the locale language pack will be german.
   if (navigator.language.includes('de')) {
-    localeLang = ELanguage.DE;
+    localeLang = Locale.DE;
   }
 
   const i18n = createI18n({

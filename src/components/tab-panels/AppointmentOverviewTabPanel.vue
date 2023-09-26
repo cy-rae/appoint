@@ -3,7 +3,7 @@
     <div id="newAppointmentDivId" class="col text-right">
       <q-btn
         @click="onNewAppointmentClick"
-        icon="add" color="accent" text-color="secondary" no-caps round
+        icon="add" color="primary" text-color="secondary" no-caps round
       />
     </div>
   </div>

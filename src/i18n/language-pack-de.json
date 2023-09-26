@@ -3,6 +3,7 @@
   "library.new-appointment": "Neuer Termin",
   "library.close": "Schließen",
   "library.cancel": "Abbrechen",
+  "library.save": "Speichern",
   "library.delete": "Löschen",
 
   "main-calendar.title": "Hauptkalender",
@@ -14,6 +15,16 @@
   "calendar-overview.no-calendars-found.description": "Es konnten keine Kalender gefunden werden.",
 
   "appointment-overview.title": "Termine",
+
+  "settings.title": "Einstellungen",
+  "settings.start-page.title": "Startseite",
+  "settings.start-page.description": "Wähle eine Seite aus, auf der du landen sollst, wenn du die App startest.",
+  "settings.language.title": "Sprache",
+  "settings.language.description": "Wähle eine Sprache aus, um die Sprache der App zu ändern.",
+  "settings.language.de": "Deutsch",
+  "settings.language.en": "Englisch",
+  "settings.dark-mode.title": "Dark Mode",
+  "settings.dark-mode.description": "Aktiviere oder deaktiviere den Dark Mode, um das Theme der App zu ändern.",
 
   "date.format.short": "DD.MM.YYYY",
   "date.format.short.with-weekdays": "dddd, DD.MM.YYYY",
