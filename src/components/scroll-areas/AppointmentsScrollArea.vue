@@ -8,7 +8,7 @@
       @right="onSlideItem"
       class="q-mb-md" style="border-radius: 12px;"
     >
-      <!-- CALENDAR CARD -->
+      <!-- APPOINTMENT CARD -->
       <q-item class="q-pa-none">
         <q-card class="q-pa-sm bg-secondary text-primary" style="width: 100%">
           <q-card-section>
@@ -42,21 +42,22 @@
     <info-card
       v-if="showErrorCard"
       :message="$t('error-message.cannot-load-calendars')"
+      :is-error="true"
       class="bg-negative" style="border-radius: 12px;"
     />
 
-    <!-- NO CALENDARS FOUND CARD -->
+    <!-- NO APPOINTMENTS FOUND CARD -->
     <info-card
       v-if="appointmentList.length <= 0 && !showErrorCard"
-      :title="$t('calendar-overview.no-calendars-found.title')"
-      :message="$t('calendar-overview.no-calendars-found.description')"
-      class="bg-warning" style="border-radius: 12px;"
+      :title="$t('appointment-scroll-area.no-appointments')"
+      :description="props.noAppointmentText || $t('appointment-scroll-area.no-appointments-scheduled')"
+      class="bg-secondary text-primary" style="border-radius: 12px;"
     />
   </q-scroll-area>
 </template>
 
 <script setup lang="ts">
-import {computed, onMounted, Ref, ref, watch} from 'vue';
+import {computed, Ref, ref, watch} from 'vue';
 import {useI18n} from 'vue-i18n';
 import {useQuasar} from 'quasar';
 import InfoCard from 'components/cards/InfoCard.vue';
@@ -70,7 +71,8 @@ const i18n = useI18n({useScope: 'global'});
 // Instantiate properties
 interface Props {
   height: number,
-  appointments: AppointmentModel[]
+  appointments: AppointmentModel[],
+  noAppointmentText?: string
 }
 const props = defineProps<Props>();
 

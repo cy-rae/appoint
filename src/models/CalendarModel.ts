@@ -1,12 +1,16 @@
+import {AppointmentModel} from 'src/models/AppointmentModel';
+
 export class CalendarModel {
   private _id: number;
   private _name: string;
   private _category: string;
+  private _appointments: AppointmentModel[];
 
   constructor() {
     this._id = 0;
     this._name = '';
     this._category = '';
+    this._appointments = [];
   }
 
   get id(): number {
@@ -31,5 +35,13 @@ export class CalendarModel {
 
   set category(value: string) {
     this._category = value;
+  }
+
+  get appointments(): AppointmentModel[] {
+    return this._appointments;
+  }
+
+  set appointments(value: AppointmentModel[]) {
+    this._appointments = value;
   }
 }

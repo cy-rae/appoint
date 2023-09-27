@@ -9,12 +9,17 @@
   "main-calendar.title": "Hauptkalender",
 
   "favorite-calendar.title": "Favoriten",
+  "favorite-calendar.no-favorite-calendars": "Sie haben bisher keine Kalender zu den Favoriten hinzugefügt.",
 
   "calendar-overview.title": "Kalenderübersicht",
   "calendar-overview.no-calendars-found.title": "Keine Kalender vorhanden",
   "calendar-overview.no-calendars-found.description": "Es konnten keine Kalender gefunden werden.",
 
   "appointment-overview.title": "Termine",
+
+  "appointment-scroll-area.no-appointments": "Keine Termine",
+  "appointment-scroll-area.no-appointments-scheduled": "Es stehen keine Termine an.",
+  "appointment-scroll-area.no-appointments-scheduled-for-selected-date": "Es stehen keine Termine für den ausgewählten Tag an.",
 
   "settings.title": "Einstellungen",
   "settings.start-page.title": "Startseite",
@@ -33,5 +38,6 @@
 
   "error-message.title": "Fehler",
   "error-message.default": "Der Systemfehler ist unbekannt.",
+  "error-message.error-at-conversion": "Es ist ein Fehler bei der Datenkonvertierung aufgetreten.",
   "error-message.cannot-load-calendars": "Die Kalender konnten nicht geladen werden."
 }

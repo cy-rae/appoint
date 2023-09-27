@@ -24,6 +24,7 @@
   <appointments-scroll-area
     :appointments="appointmentList"
     :height="scrollAreaHeight"
+    :no-appointment-text="$t('appointment-scroll-area.no-appointments-scheduled-for-selected-date')"
   />
 </template>
 
@@ -40,7 +41,6 @@ const dateUtils = new DateUtils();
 const selectedDate = ref('');
 const dateMask = computed(() => dateUtils.DATE_FORMAT_SHORT());
 const events: Ref<string[]> = ref([]);
-
 
 // Initialize scroll area variables
 const scrollAreaHeight = ref(document.body.offsetHeight * 0.35);
