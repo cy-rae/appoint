@@ -4,7 +4,7 @@
     :options="startPageOptions"
     :label="$t('settings.start-page.title')"
     @update:model-value="onUpdateModelValue"
-    behavior="menu" options-selected-class="text-accent" color="accent"  bg-color="contrast-3" filled
+    behavior="menu" options-selected-class="text-accent" color="accent" bg-color="contrast-3" filled
   >
     <!-- SELECTED TEMPLATE -->
     <template v-slot:selected>

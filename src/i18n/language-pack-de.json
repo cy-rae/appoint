@@ -20,6 +20,12 @@
   "appointment-scroll-area.no-appointments": "Keine Termine",
   "appointment-scroll-area.no-appointments-scheduled": "Es stehen keine Termine an.",
   "appointment-scroll-area.no-appointments-scheduled-for-selected-date": "Es stehen keine Termine für den ausgewählten Tag an.",
+  "appointment-scroll-area.no-appointments-added-for-selected-date": "Es wurden keine Termine für den ausgewählten Tag hinzugefügt.",
+
+  "new-calendar-page.title": "Neuer Kalender",
+  "new-calendar-page.calendar-settings": "Kalendereinstellungen",
+  "new-calendar-page.calendar-name": "Kalendername",
+  "new-calendar-page.calendar-description": "Beschreibung",
 
   "settings.title": "Einstellungen",
   "settings.start-page.title": "Startseite",

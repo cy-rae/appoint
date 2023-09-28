@@ -9,7 +9,7 @@
     <!-- FAVORITE CALENDARS -->
     <q-tab-panels
       v-model="tab"
-      animated class="bg-transparent full-height full-width" swipeable infinite
+      animated class="bg-transparent full-height full-width" swipeable infinite vertical
     >
       <q-tab-panel
         v-for="(calendar, index) in favoriteCalendars"

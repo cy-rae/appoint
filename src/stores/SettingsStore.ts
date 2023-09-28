@@ -7,7 +7,7 @@ import {useI18n} from 'vue-i18n';
 import {LanguageModel} from 'src/models/settings/LanguageModel';
 
 /**
- * This pinia store is responsible for storing the user profile data.
+ * This pinia store is responsible for storing the app's settings.
  */
 export const useSettingsStore = defineStore('SettingsStore', () => {
   // Instantiate helpers.

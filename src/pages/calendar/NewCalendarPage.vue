@@ -1,51 +1,79 @@
 <template>
-  <!-- CALENDAR NAME -->
-  <div class="text-cursive text-bold text-primary xl-font-size bg-secondary q-mb-sm q-py-xs q-pl-sm" style="border-radius: 6px;">
-    {{$t('main-calendar.title')}}
-  </div>
+  <q-page class="q-pa-md">
+    <!-- EDIT SETTINGS BUTTON -->
+    <div id="buttonsDivId" class="row full-width justify-end q-mb-sm q-gutter-sm">
+      <q-btn @click="onEdit" icon="edit" color="accent" text-color="secondary" round/>
+      <q-btn @click="onDone" icon="done" color="accent" text-color="secondary" round/>
+    </div>
 
-  <!-- CALENDAR -->
-  <q-date
-    id="mainCalendarId"
-    v-model="selectedDate"
-    :mask="dateMask"
-    :events="events"
-    :event-color="computeCalendarDayColor"
-    minimal
-    class="full-width"
-    @navigation="onNavigationClick"
-  />
+    <!-- CALENDAR NAME -->
+    <q-input
+      ref="calendarNameInputRef"
+      v-model="calendar.name"
+      :label="$t('new-calendar-page.calendar-name')"
+      @update:model-value="onUpdateCalendarName"
+      :rules="[() => !!calendar.name]"
+      filled dense bg-color="secondary" clearable
+      class="text-cursive q-mb-sm text-bold xl-font-size" style="border-radius: 6px"
+    >
+      <template v-slot:append>
+        <div class="text-accent text-bold">*</div>
+      </template>
+    </q-input>
 
-  <!-- NEW APPOINTMENT BUTTON -->
-  <div id="newAppointmentDivId" class="q-py-sm" style="text-align: center">
-    <q-btn
-      :label="$t('library.new-appointment')"
-      @click="onNewAppointmentClick"
-      color="accent" text-color="contrast-1" no-caps
+    <!-- CALENDAR -->
+    <q-date
+      id="calendarId"
+      v-model="selectedDate"
+      :mask="dateMask"
+      :events="events"
+      :event-color="computeCalendarDayColor"
+      @navigation="onNavigationClick"
+      minimal class="full-width"
     />
-  </div>
 
-  <!-- APPOINTMENT SCROLL AREA -->
-  <appointments-scroll-area
-    :appointments="appointmentList"
-    :height="scrollAreaHeight"
-    :no-appointment-text="$t('appointment-scroll-area.no-appointments-scheduled-for-selected-date')"
-  />
+    <!-- NEW APPOINTMENT BUTTON -->
+    <div id="newAppointmentDivId" class="q-py-sm" style="text-align: center">
+      <q-btn
+        :label="$t('library.new-appointment')"
+        @click="onNewAppointmentClick"
+        color="accent" text-color="contrast-1" no-caps
+      />
+    </div>
+
+    <!-- APPOINTMENT SCROLL AREA -->
+    <appointments-scroll-area
+      :appointments="appointmentList"
+      :height="scrollAreaHeight"
+      :no-appointment-text="$t('appointment-scroll-area.no-appointments-added-for-selected-date')"
+    />
+  </q-page>
 </template>
 
-<script setup lang='ts'>
+<script setup lang="ts">
 import {computed, onMounted, Ref, ref} from 'vue';
 import {DateUtils} from 'src/utils/DateUtils';
 import AppointmentsScrollArea from 'components/scroll-areas/AppointmentsScrollArea.vue';
 import {AppointmentModel} from 'src/models/AppointmentModel';
+import {CalendarModel} from 'src/models/CalendarModel';
+import {useCalendarStore} from 'stores/CalendarStore';
+import {QInput} from 'quasar';
+
+interface Props {
+  pCalendar?: CalendarModel
+}
+const props = defineProps<Props>();
 
 // Instantiate helpers
+const calendarStore = useCalendarStore();
 const dateUtils = new DateUtils();
 
 // Initialize template variables.
+const calendar = ref(props.pCalendar || calendarStore.calendar);
 const selectedDate = ref('');
 const dateMask = computed(() => dateUtils.DATE_FORMAT_SHORT());
 const events: Ref<string[]> = ref([]);
+const calendarNameInputRef = ref<InstanceType<typeof QInput> | null>(null);
 
 // Initialize scroll area variables
 const scrollAreaHeight = ref(document.body.offsetHeight * 0.35);
@@ -61,7 +89,6 @@ onMounted(() => {
 
   // Calculate the height of the scroll area and load all appointments that are taking place on the selected month.
   calculateScrollAreaHeight();
-  loadAppointmentsOfSelectedMonth();
 });
 
 /**
@@ -69,12 +96,13 @@ onMounted(() => {
  */
 function calculateScrollAreaHeight() {
   // Get button that is over scroll area.
-  const mainCalendarElement = document.getElementById('mainCalendarId');
+  const buttonsDivElement = document.getElementById('buttonsDivId');
+  const calendarElement = document.getElementById('calendarId');
   const newAppointmentDivElement = document.getElementById('newAppointmentDivId');
-  if(mainCalendarElement && newAppointmentDivElement) {
+  if (buttonsDivElement && calendarElement && newAppointmentDivElement) {
     // Height = body height - footer height - header height - calendar height - button div height - tab panel padding
-    scrollAreaHeight.value = document.body.offsetHeight * 0.83 - mainCalendarElement.offsetHeight
-      - newAppointmentDivElement.offsetHeight - 32;
+    scrollAreaHeight.value = document.body.offsetHeight * 0.91 - buttonsDivElement.offsetHeight
+      - calendarElement.offsetHeight - newAppointmentDivElement.offsetHeight - 32;
   }
 }
 
@@ -83,7 +111,7 @@ function calculateScrollAreaHeight() {
  */
 function loadAppointmentsOfSelectedMonth() {
   const tmpList: AppointmentModel[] = [];
-  for(let i = 0; i < 15; i++) {
+  for (let i = 0; i < 15; i++) {
     const appointment = new AppointmentModel();
     appointment.id = i;
     appointment.title = 'APPOINTMENT ' + i.toString();
@@ -91,9 +119,35 @@ function loadAppointmentsOfSelectedMonth() {
   }
   appointmentList.value = tmpList;
 }
+
 // endregion
 
 // region EVENTS
+/**
+ * If the user edits the name of the calendar, the store data will be updated.
+ */
+function onUpdateCalendarName(newVal: string) {
+  calendarStore.name = newVal;
+}
+
+/**TODO
+ * If the user clicks on the edit button, a dialog will be shown to edit the calendar data.
+ */
+function onEdit() {
+  console.log('onEdit')
+}
+
+/**TODO
+ * If the user clicks on the done button, the calendar will be validated. If the validation is successful, the calendar
+ * will be stored.
+ */
+async function onDone() {
+  console.log('onDone')
+  if(await calendarNameInputRef.value?.validate()) {
+    console.log('valid')
+  }
+}
+
 /**
  * If the user selects a specific month or year on the navigation view,
  * the current date and the calendar events will be updated.
@@ -118,9 +172,10 @@ function onNavigationClick(view: { year: number, month: number }) {
   calculateScrollAreaHeight();
 }
 
-function onNewAppointmentClick(){
+function onNewAppointmentClick() {
   console.log('onNewAppointmentClick')
 }
+
 // endregion
 
 // region TEMPLATE METHODS
@@ -137,5 +192,6 @@ function computeCalendarDayColor(eventDate: string) {
     return 'positive'
   }
 }
+
 // endregion
 </script>

@@ -28,7 +28,7 @@
 
           <!-- PAGE CONTAINER -->
           <q-page-container>
-            <router-view/>
+            <index-page/>
           </q-page-container>
         </div>
       </div>
@@ -39,6 +39,7 @@
 <script setup lang="ts">
 import {ref} from 'vue'
 import SettingsDrawer from 'components/drawers/SettingsDrawer.vue';
+import IndexPage from 'pages/main/IndexPage.vue';
 
 const settingsDrawerRef = ref<InstanceType<typeof SettingsDrawer> | null>(null);
 </script>
