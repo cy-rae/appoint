@@ -5,6 +5,7 @@
   "library.cancel": "Cancel",
   "library.save": "Save",
   "library.delete": "Delete",
+  "library.apply": "Apply",
 
   "main-calendar.title": "Main calendar",
 
@@ -14,6 +15,10 @@
   "calendar-overview.title": "Calendar overview",
   "calendar-overview.no-calendars-found.title": "No calendars available",
   "calendar-overview.no-calendars-found.description": "No calendars could be found.",
+
+  "calendar-edit.calendar-properties": "Calendar properties",
+  "calendar-edit.select-color": "Calendar color",
+  "calendar-edit.calendar-description": "Calendar description",
 
   "appointment-overview.title": "Appointments",
 

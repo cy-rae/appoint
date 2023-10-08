@@ -19,7 +19,7 @@
 
           <!-- PAGE CONTAINER -->
           <q-page-container>
-            <new-calendar-page/>
+            <calendar-edit-page/>
           </q-page-container>
         </div>
       </div>
@@ -31,7 +31,7 @@
 import {onMounted, ref, watch} from 'vue';
 import {useI18n} from 'vue-i18n';
 import {useCalendarStore} from 'stores/CalendarStore';
-import NewCalendarPage from 'pages/calendar/NewCalendarPage.vue';
+import CalendarEditPage from 'pages/calendar/CalendarEditPage.vue';
 
 // Initialize helpers.
 const i18n = useI18n();

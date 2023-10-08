@@ -6,6 +6,9 @@
       <q-btn @click="onDone" icon="done" color="accent" text-color="secondary" round/>
     </div>
 
+    <!-- EDIT DIALOG -->
+    <calendar-edit-dialog ref="calendarEditRef" @set-calendar-properties="onSetCalendarProperties"/>
+
     <!-- CALENDAR NAME -->
     <q-input
       ref="calendarNameInputRef"
@@ -17,6 +20,23 @@
       class="text-cursive q-mb-sm text-bold xl-font-size" style="border-radius: 6px"
     >
       <template v-slot:append>
+        <!-- DESCRIPTION BUTTON -->
+        <q-btn
+          v-if='calendar.description'
+          @click="onShowDescription = !onShowDescription"
+          icon="info" size="lg" unelevated dense round color="transparent" text-color="accent"
+        />
+        <info-dialog
+          v-model="onShowDescription"
+          @close="onShowDescription = !onShowDescription"
+          :title="$t('calendar-edit.calendar-description')"
+          :description="calendar.description"
+        />
+
+        <!-- BOOKMARK ICON -->
+        <q-icon v-if='calendar.color' name="bookmark" class="q-mb-md" :style="bookMarkStyle" size="lg"/>
+
+        <!-- REQUIRED -->
         <div class="text-accent text-bold">*</div>
       </template>
     </q-input>
@@ -58,6 +78,8 @@ import {AppointmentModel} from 'src/models/AppointmentModel';
 import {CalendarModel} from 'src/models/CalendarModel';
 import {useCalendarStore} from 'stores/CalendarStore';
 import {QInput} from 'quasar';
+import CalendarEditDialog from 'components/dialogs/CalendarEditDialog.vue';
+import InfoDialog from 'components/dialogs/InfoDialog.vue';
 
 interface Props {
   pCalendar?: CalendarModel
@@ -69,7 +91,12 @@ const calendarStore = useCalendarStore();
 const dateUtils = new DateUtils();
 
 // Initialize template variables.
+const calendarEditRef = ref<InstanceType<typeof CalendarEditDialog> | null>(null);
 const calendar = ref(props.pCalendar || calendarStore.calendar);
+const bookMarkStyle = computed(() =>
+  !!calendar.value.color ? {color: calendar.value.color} : {}
+);
+const onShowDescription = ref(false);
 const selectedDate = ref('');
 const dateMask = computed(() => dateUtils.DATE_FORMAT_SHORT());
 const events: Ref<string[]> = ref([]);
@@ -130,12 +157,24 @@ function onUpdateCalendarName(newVal: string) {
   calendarStore.name = newVal;
 }
 
-/**TODO
+// region CALENDAR EDIT EVENTS
+/**
  * If the user clicks on the edit button, a dialog will be shown to edit the calendar data.
  */
 function onEdit() {
-  console.log('onEdit')
+  calendarEditRef.value.showDialog(calendar.value.color, calendar.value.description);
 }
+
+/**
+ * If the user applies new calendar properties, the properties of the local calendar variable will be updated.
+ * @param color This parameter will replace the color property of the local calendar variable.
+ * @param description This parameter will replace the description property of the local calendar variable.
+ */
+function onSetCalendarProperties(color: string, description: string) {
+  calendar.value.color = color;
+  calendar.value.description = description;
+}
+// endregion
 
 /**TODO
  * If the user clicks on the done button, the calendar will be validated. If the validation is successful, the calendar

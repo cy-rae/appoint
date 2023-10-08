@@ -15,7 +15,7 @@
             {{calendar.name}}
           </q-card-section>
           <q-card-section>
-            {{calendar.category}}
+            {{ calendar.color }}
           </q-card-section>
         </q-card>
       </q-item>

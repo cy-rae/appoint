@@ -21,7 +21,7 @@ export const useCalendarStore = defineStore('CalendarStore', () => {
     cal.id = id.value;
     cal.name = name.value;
     cal.description = description.value;
-    cal.category = category.value;
+    cal.color = category.value;
     cal.appointments = appointments.value
     return cal;
   })

@@ -8,7 +8,7 @@ const routes: RouteRecordRaw[] = [
   },
   {
     path: PagePaths.NEW_CALENDAR,
-    component: () => import('layouts/NewCalendarLayout.vue')
+    component: () => import('layouts/EditLayout.vue')
   },
 
   // Always leave this as last one,
