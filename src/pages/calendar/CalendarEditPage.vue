@@ -2,8 +2,8 @@
   <q-page class="q-pa-md">
     <!-- EDIT SETTINGS BUTTON -->
     <div id="buttonsDivId" class="row full-width justify-end q-mb-sm q-gutter-sm">
-      <q-btn @click="onEdit" icon="edit" color="accent" text-color="secondary" round/>
-      <q-btn @click="onDone" icon="done" color="accent" text-color="secondary" round/>
+      <q-btn @click="onEdit" icon="edit" color="primary" text-color="secondary" round/>
+      <q-btn @click="onDone" icon="done" color="primary" text-color="secondary" round/>
     </div>
 
     <!-- EDIT DIALOG -->
@@ -16,15 +16,22 @@
       :label="$t('new-calendar-page.calendar-name')"
       @update:model-value="onUpdateCalendarName"
       :rules="[() => !!calendar.name]"
-      filled dense bg-color="secondary" clearable
-      class="text-cursive q-mb-sm text-bold xl-font-size" style="border-radius: 6px"
+      filled dense bg-color="secondary" label-color="primary" input-class="text-primary"
+      class="text-cursive q-mb-sm text-bold xl-font-size text-primary" style="border-radius: 6px"
     >
       <template v-slot:append>
+        <!-- CLEAR BUTTON-->
+        <q-btn
+          v-if="calendar.name"
+          @click="calendar.name=''"
+          icon="close" unelevated dense round color="primary" text-color="secondary" size="xs"
+        />
+
         <!-- DESCRIPTION BUTTON -->
         <q-btn
           v-if='calendar.description'
           @click="onShowDescription = !onShowDescription"
-          icon="info" size="lg" unelevated dense round color="transparent" text-color="accent"
+          icon="info" unelevated dense round color="transparent" text-color="primary"
         />
         <info-dialog
           v-model="onShowDescription"
@@ -84,6 +91,7 @@ import InfoDialog from 'components/dialogs/InfoDialog.vue';
 interface Props {
   pCalendar?: CalendarModel
 }
+
 const props = defineProps<Props>();
 
 // Instantiate helpers
@@ -174,6 +182,7 @@ function onSetCalendarProperties(color: string, description: string) {
   calendar.value.color = color;
   calendar.value.description = description;
 }
+
 // endregion
 
 /**TODO
@@ -182,7 +191,7 @@ function onSetCalendarProperties(color: string, description: string) {
  */
 async function onDone() {
   console.log('onDone')
-  if(await calendarNameInputRef.value?.validate()) {
+  if (await calendarNameInputRef.value?.validate()) {
     console.log('valid')
   }
 }

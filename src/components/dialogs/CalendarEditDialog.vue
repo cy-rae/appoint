@@ -8,13 +8,18 @@
       </q-toolbar>
 
       <q-card-section>
-        <div class="lg-font-size q-pb-sm">
-          <q-icon :name="!!color ? 'bookmark' : 'turned_in_not'" :style="bookMarkStyle" size="md"/>
-          {{ $t('calendar-edit.select-color') }}
+        <div class="row full-width q-pb-sm">
+          <div class="col lg-font-size q-my-auto">
+            <q-icon :name="!!color ? 'bookmark' : 'turned_in_not'" :style="bookMarkStyle" size="md"/>
+            {{ $t('calendar-edit.select-color') }}
+          </div>
+          <q-btn
+            @click="color = ''"
+            icon="restart_alt" round color="transparent" text-color="accent" unelevated dense
+          />
         </div>
         <q-color
           v-model="color"
-          @update:model-value="test"
           no-header no-footer default-view="palette" style="max-width: 100%"
         />
       </q-card-section>
@@ -32,12 +37,12 @@
         <q-btn
           :label="$t('library.close')"
           @click="hideDialog"
-          no-caps unelevated color="accent" text-color="secondary"
+          no-caps unelevated color="contrast-2" text-color="accent"
         />
         <q-btn
           :label="$t('library.apply')"
           @click="onApply"
-          no-caps unelevated color="accent" text-color="secondary"
+          no-caps unelevated color="accent" text-color="contrast-1"
         />
       </q-card-actions>
     </q-card>
@@ -80,6 +85,7 @@ function onApply() {
   emit('set-calendar-properties', color.value, description.value)
   dialog.value = false;
 }
+
 // endregion
 
 /**

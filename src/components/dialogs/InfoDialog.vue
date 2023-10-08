@@ -1,6 +1,6 @@
 <template>
   <q-dialog>
-    <q-card class="bg-contrast-2">
+    <q-card class="full-width bg-contrast-2">
       <!-- TITLE -->
       <q-toolbar class="bg-primary text-secondary">
         <q-toolbar-title>

@@ -7,7 +7,7 @@ const routes: RouteRecordRaw[] = [
     component: () => import('layouts/MainLayout.vue')
   },
   {
-    path: PagePaths.NEW_CALENDAR,
+    path: PagePaths.EDIT_CALENDAR,
     component: () => import('layouts/EditLayout.vue')
   },
 

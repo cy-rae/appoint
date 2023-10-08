@@ -1,4 +1,4 @@
 export enum PagePaths {
   MAIN = '/',
-  NEW_CALENDAR = '/new-calendar'
+  EDIT_CALENDAR = '/edit-calendar'
 }

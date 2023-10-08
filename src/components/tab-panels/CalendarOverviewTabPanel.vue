@@ -3,7 +3,7 @@
     <div id="newCalendarDivId" class="col text-right">
       <q-btn
         @click="onNewCalendarClick"
-        icon="add" color="accent" text-color="secondary" no-caps round
+        icon="add" color="primary" text-color="secondary" no-caps round
       />
     </div>
   </div>
@@ -23,6 +23,6 @@ const router = useRouter();
  * If the user clicks on the new calendar button, the user will be redirected to a page to create a new calendar.
  */
 function onNewCalendarClick() {
-  router.push(PagePaths.NEW_CALENDAR);
+  router.push(PagePaths.EDIT_CALENDAR);
 }
 </script>

@@ -1,7 +1,7 @@
 <template>
   <q-card v-if="!favoriteCalendars || !favoriteCalendars.length" class="bg-secondary lg-font-size">
     <q-card-section>
-      {{$t('favorite-calendar.no-favorite-calendars')}}
+      {{ $t('favorite-calendar.no-favorite-calendars') }}
     </q-card-section>
   </q-card>
 
@@ -17,10 +17,8 @@
         :name="index"
         class="full-height q-pa-none"
       >
-        <!-- CALENDAR NAME -->
-        <div class="text-cursive text-bold text-primary xl-font-size bg-secondary q-mb-sm q-py-xs q-pl-sm" style="border-radius: 6px;">
-          {{calendar.name}}
-        </div>
+        <!-- CALENDAR TITLE -->
+       <calendar-title-label :calendar="calendar"/>
 
         <!-- CALENDAR -->
         <q-date
@@ -61,6 +59,8 @@ import {DateUtils} from 'src/utils/DateUtils';
 import AppointmentsScrollArea from 'components/scroll-areas/AppointmentsScrollArea.vue';
 import {AppointmentModel} from 'src/models/AppointmentModel';
 import {CalendarModel} from 'src/models/CalendarModel';
+import InfoDialog from 'components/dialogs/InfoDialog.vue';
+import CalendarTitleLabel from 'components/labels/CalendarTitleLabel.vue';
 
 // Instantiate helpers
 const dateUtils = new DateUtils();
@@ -68,6 +68,7 @@ const dateUtils = new DateUtils();
 // Initialize template variables.
 const tab = ref(0);
 const favoriteCalendars: Ref<CalendarModel[]> = ref([]);
+const onShowDescription = ref(false);
 const selectedDate = ref('');
 const dateMask = computed(() => dateUtils.DATE_FORMAT_SHORT());
 
@@ -107,6 +108,8 @@ onMounted(() => {
   appointment.endDate = new Date();
   favoriteCalendars.value[1].appointments.push(appointment)
   favoriteCalendars.value[1].name = 'Test calendar name'
+  favoriteCalendars.value[1].description = 'Test calendar description'
+  favoriteCalendars.value[1].color = '#a233f5'
 });
 
 /**
