@@ -22,10 +22,27 @@
 
   "appointment-overview.title": "Termine",
 
+  "appointment-edit.new-appointment": "Neuer Termin",
+  "appointment-edit.title": "Titel",
+  "appointment-edit.start-date": "Startdatum",
+  "appointment-edit.start-time": "Startuhrzeit",
+  "appointment-edit.end-date": "Enddatum",
+  "appointment-edit.end-time": "Enduhrzeit",
+  "appointment-edit.priority": "Priorität",
+  "appointment-edit.type": "Termintyp",
+  "appointment-edit.notes": "Notizen",
+
   "appointment-scroll-area.no-appointments": "Keine Termine",
   "appointment-scroll-area.no-appointments-scheduled": "Es stehen keine Termine an.",
   "appointment-scroll-area.no-appointments-scheduled-for-selected-date": "Es stehen keine Termine für den ausgewählten Tag an.",
   "appointment-scroll-area.no-appointments-added-for-selected-date": "Es wurden keine Termine für den ausgewählten Tag hinzugefügt.",
+
+  "priority.no-priority": "Keine Priorität",
+  "priority.very-low": "Sehr niedrig",
+  "priority.low": "Niedrig",
+  "priority.middle": "Mittel",
+  "priority.high": "Hoch",
+  "priority.very-high": "Sehr hoch",
 
   "new-calendar-page.title": "Neuer Kalender",
   "new-calendar-page.calendar-settings": "Kalendereinstellungen",

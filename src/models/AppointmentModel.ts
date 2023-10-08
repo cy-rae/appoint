@@ -3,7 +3,7 @@ import {Priority} from 'src/enums/Priority';
 export class AppointmentModel {
   private _id: number;
   private _title: string;
-  private _description: string;
+  private _notes: string;
   private _startDate: Date;
   private _endDate: Date;
   private _priority: Priority;
@@ -11,10 +11,10 @@ export class AppointmentModel {
   constructor() {
     this._id = 0;
     this._title = '';
-    this._description = '';
+    this._notes = '';
     this._startDate = new Date();
     this._endDate = new Date();
-    this._priority = Priority.MIDDLE;
+    this._priority = Priority.NO_PRIORITY;
   }
 
 
@@ -34,12 +34,12 @@ export class AppointmentModel {
     this._title = value;
   }
 
-  get description(): string {
-    return this._description;
+  get notes(): string {
+    return this._notes;
   }
 
-  set description(value: string) {
-    this._description = value;
+  set notes(value: string) {
+    this._notes = value;
   }
 
   get startDate(): Date {

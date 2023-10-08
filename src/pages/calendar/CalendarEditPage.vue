@@ -7,7 +7,7 @@
     </div>
 
     <!-- EDIT DIALOG -->
-    <calendar-edit-dialog ref="calendarEditRef" @set-calendar-properties="onSetCalendarProperties"/>
+    <calendar-properties-dialog ref="calendarEditRef" @set-calendar-properties="onSetCalendarProperties"/>
 
     <!-- CALENDAR NAME -->
     <q-input
@@ -16,8 +16,8 @@
       :label="$t('new-calendar-page.calendar-name')"
       @update:model-value="onUpdateCalendarName"
       :rules="[() => !!calendar.name]"
-      filled dense bg-color="secondary" label-color="primary" input-class="text-primary"
-      class="text-cursive q-mb-sm text-bold xl-font-size text-primary" style="border-radius: 6px"
+      filled dense bg-color="secondary" label-color="primary"
+      input-class="text-primary text-bold text-cursive xl-font-size"
     >
       <template v-slot:append>
         <!-- CLEAR BUTTON-->
@@ -43,7 +43,7 @@
         <!-- BOOKMARK ICON -->
         <q-icon v-if='calendar.color' name="bookmark" class="q-mb-md" :style="bookMarkStyle" size="lg"/>
 
-        <!-- REQUIRED -->
+        <!-- REQUIRED MARK -->
         <div class="text-accent text-bold">*</div>
       </template>
     </q-input>
@@ -66,6 +66,8 @@
         @click="onNewAppointmentClick"
         color="accent" text-color="contrast-1" no-caps
       />
+
+      <new-appointment-dialog ref="newAppointmentDialogRef"/>
     </div>
 
     <!-- APPOINTMENT SCROLL AREA -->
@@ -85,8 +87,10 @@ import {AppointmentModel} from 'src/models/AppointmentModel';
 import {CalendarModel} from 'src/models/CalendarModel';
 import {useCalendarStore} from 'stores/CalendarStore';
 import {QInput} from 'quasar';
-import CalendarEditDialog from 'components/dialogs/CalendarEditDialog.vue';
+import CalendarEditDialog from 'components/dialogs/CalendarPropertiesDialog.vue';
 import InfoDialog from 'components/dialogs/InfoDialog.vue';
+import NewAppointmentDialog from 'components/dialogs/NewAppointmentDialog.vue';
+import CalendarPropertiesDialog from 'components/dialogs/CalendarPropertiesDialog.vue';
 
 interface Props {
   pCalendar?: CalendarModel
@@ -109,6 +113,7 @@ const selectedDate = ref('');
 const dateMask = computed(() => dateUtils.DATE_FORMAT_SHORT());
 const events: Ref<string[]> = ref([]);
 const calendarNameInputRef = ref<InstanceType<typeof QInput> | null>(null);
+const newAppointmentDialogRef = ref<InstanceType<typeof NewAppointmentDialog> | null>(null);
 
 // Initialize scroll area variables
 const scrollAreaHeight = ref(document.body.offsetHeight * 0.35);
@@ -220,10 +225,14 @@ function onNavigationClick(view: { year: number, month: number }) {
   calculateScrollAreaHeight();
 }
 
+/**
+ * If the user clicks on the new appointment button, a dialog will be shown to create a new appointment for this
+ * calendar on the selected date.
+ */
 function onNewAppointmentClick() {
-  console.log('onNewAppointmentClick')
+  const startDate: Date = dateUtils.stringToDate(selectedDate.value);
+  newAppointmentDialogRef.value?.showDialog(calendar.value, startDate);
 }
-
 // endregion
 
 // region TEMPLATE METHODS

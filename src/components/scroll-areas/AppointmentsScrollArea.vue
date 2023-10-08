@@ -15,7 +15,7 @@
             {{appointment.title}}
           </q-card-section>
           <q-card-section>
-            {{appointment.description}}
+            {{ appointment.notes }}
           </q-card-section>
         </q-card>
       </q-item>

@@ -22,6 +22,23 @@
 
   "appointment-overview.title": "Appointments",
 
+  "appointment-edit.new-appointment": "New appointment",
+  "appointment-edit.title": "Title",
+  "appointment-edit.start-date": "Start date",
+  "appointment-edit.start-time": "Start time",
+  "appointment-edit.end-date": "End time",
+  "appointment-edit.end-time": "End time",
+  "appointment-edit.priority": "Priority",
+  "appointment-edit.type": "Appointment type",
+  "appointment-edit.notes": "Notes",
+
+  "priority.no-priority": "No priority",
+  "priority.very-low": "Very low",
+  "priority.low": "Low",
+  "priority.middle": "Middle",
+  "priority.high": "High",
+  "priority.very-high": "Very high",
+
   "appointment-scroll-area.no-appointments": "No appointments",
   "appointment-scroll-area.no-appointments-scheduled": "There are no appointments scheduled.",
   "appointment-scroll-area.no-appointments-scheduled-for-selected-date": "There are no appointments scheduled for the selected day.",

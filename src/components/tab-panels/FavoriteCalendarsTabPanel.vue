@@ -103,7 +103,7 @@ onMounted(() => {
   favoriteCalendars.value.push(new CalendarModel());
   const appointment = new AppointmentModel();
   appointment.title = 'TEST TITLE';
-  appointment.description = 'TEST DESCRIPTION';
+  appointment.notes = 'TEST DESCRIPTION';
   appointment.startDate = new Date();
   appointment.endDate = new Date();
   favoriteCalendars.value[1].appointments.push(appointment)

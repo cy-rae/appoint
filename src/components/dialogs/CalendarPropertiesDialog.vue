@@ -85,7 +85,6 @@ function onApply() {
   emit('set-calendar-properties', color.value, description.value)
   dialog.value = false;
 }
-
 // endregion
 
 /**
