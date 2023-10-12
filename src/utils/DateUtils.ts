@@ -8,7 +8,10 @@ export class DateUtils {
   private _errorMessageUtils = new ErrorMessageUtils();
 
   DATE_FORMAT_SHORT = () => this._i18n.t('date.format.short');
+  DATE_FORMAT_LONG = () => this._i18n.t('date.format.long');
+  TIME_FORMAT = 'HH:mm';
   DATE_FORMAT_EVENT = 'YYYY/MM/DD';
+  DATE_MASK = () => this._i18n.t('date.mask')
   DATE_FORMAT_WEEKDAY = 'dddd';
   DATE_FORMAT_SHORT_WITH_WEEKDAY = () => this._i18n.t('date.format.short.with-weekdays');
 
@@ -28,6 +31,9 @@ export class DateUtils {
    * @param dateformat This parameter specifies the target date format.
    */
   adjustFormat(dateValue: string | number | Date | undefined | null, dateformat = this.DATE_FORMAT_SHORT()): string | null {
+    if(typeof dateValue === 'string')
+      dateValue = this.stringToDate(dateValue, this.DATE_FORMAT_LONG());
+
     if (dateValue && dateformat) {
       return date.formatDate(dateValue, dateformat);
     }
@@ -87,5 +93,19 @@ export class DateUtils {
     }
 
     return events;
+  }
+
+  /**
+   * Set the time of the passed date parameter to the passed time parameter.
+   * @param dateVal This parameter represents the date whose time will be adjusted.
+   * @param timeVal This parameter represents the new time.
+   */
+  adjustTime(dateVal: Date, timeVal: Date) {
+    return date.adjustDate(dateVal, {
+      hours: timeVal.getHours(),
+      minutes: timeVal.getMinutes(),
+      seconds: timeVal.getSeconds(),
+      milliseconds: timeVal.getMilliseconds(),
+    });
   }
 }

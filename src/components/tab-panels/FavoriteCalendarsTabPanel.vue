@@ -27,9 +27,8 @@
           :mask="dateMask"
           :events="getAllEventsOfCalendar(calendar)"
           :event-color="computeCalendarDayColor"
-          minimal
-          class="full-width"
           @navigation="onNavigationClick"
+          minimal class="full-width" color="accent" text-color="contrast-1"
         />
       </q-tab-panel>
     </q-tab-panels>

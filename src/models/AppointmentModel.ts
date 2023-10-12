@@ -4,19 +4,20 @@ export class AppointmentModel {
   private _id: number;
   private _title: string;
   private _notes: string;
-  private _startDate: Date;
-  private _endDate: Date;
+  private _startDate: string;
+  private _endDate: string;
   private _priority: Priority;
+  private _calendars: string[];
 
   constructor() {
     this._id = 0;
     this._title = '';
     this._notes = '';
-    this._startDate = new Date();
-    this._endDate = new Date();
+    this._startDate = '';
+    this._endDate = '';
     this._priority = Priority.NO_PRIORITY;
+    this._calendars = [];
   }
-
 
   get id(): number {
     return this._id;
@@ -42,19 +43,19 @@ export class AppointmentModel {
     this._notes = value;
   }
 
-  get startDate(): Date {
+  get startDate(): string {
     return this._startDate;
   }
 
-  set startDate(value: Date) {
+  set startDate(value: string) {
     this._startDate = value;
   }
 
-  get endDate(): Date {
+  get endDate(): string {
     return this._endDate;
   }
 
-  set endDate(value: Date) {
+  set endDate(value: string) {
     this._endDate = value;
   }
 
@@ -64,5 +65,13 @@ export class AppointmentModel {
 
   set priority(value: Priority) {
     this._priority = value;
+  }
+
+  get calendars(): string[] {
+    return this._calendars;
+  }
+
+  set calendars(value: string[]) {
+    this._calendars = value;
   }
 }

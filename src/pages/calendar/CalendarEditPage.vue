@@ -56,7 +56,7 @@
       :events="events"
       :event-color="computeCalendarDayColor"
       @navigation="onNavigationClick"
-      minimal class="full-width"
+      minimal class="full-width" color="accent" text-color="contrast-1"
     />
 
     <!-- NEW APPOINTMENT BUTTON -->
@@ -230,8 +230,14 @@ function onNavigationClick(view: { year: number, month: number }) {
  * calendar on the selected date.
  */
 function onNewAppointmentClick() {
-  const startDate: Date = dateUtils.stringToDate(selectedDate.value);
-  newAppointmentDialogRef.value?.showDialog(calendar.value, startDate);
+  // Get the selected date with the current time as string.
+  let startDate = dateUtils.stringToDate(selectedDate.value);
+  const currentTime = new Date();
+  startDate = dateUtils.adjustTime(startDate, currentTime);
+  const startDateStr = dateUtils.adjustFormat(startDate, dateUtils.DATE_FORMAT_LONG());
+
+  // Show the new appointment dialog and initialize it with the start date string.
+  newAppointmentDialogRef.value?.showDialog(calendar.value, startDateStr);
 }
 // endregion
 

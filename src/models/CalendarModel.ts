@@ -1,26 +1,16 @@
 import {AppointmentModel} from 'src/models/AppointmentModel';
 
 export class CalendarModel {
-  private _id: number;
   private _name: string;
   private _description: string;
   private _color: string;
   private _appointments: AppointmentModel[];
 
   constructor() {
-    this._id = 0;
     this._name = '';
     this._description = '';
     this._color = '';
     this._appointments = [];
-  }
-
-  get id(): number {
-    return this._id;
-  }
-
-  set id(value: number) {
-    this._id = value;
   }
 
   get name(): string {

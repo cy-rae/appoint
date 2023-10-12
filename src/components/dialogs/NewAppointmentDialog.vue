@@ -4,7 +4,7 @@
       <!-- TITLE -->
       <q-toolbar class="bg-primary text-secondary">
         <q-toolbar-title>
-          {{$t('appointment-edit.new-appointment')}}
+          {{ $t('appointment-edit.new-appointment') }}
         </q-toolbar-title>
       </q-toolbar>
 
@@ -31,8 +31,26 @@
         </q-input>
 
         <!-- START DATE AND TIME -->
+        <date-time-input
+          :date="appointment.startDate"
+          :date-label="$t('appointment-edit.start-date')"
+          :date-rules="startDateRules"
+          :time-label="$t('appointment-edit.start-time')"
+          :time-rules="startTimeRules"
+          @update:date="(startDate: string) => appointment.startDate = startDate"
+          class="q-pb-md"
+        />
 
         <!-- END DATE AND TIME -->
+        <date-time-input
+          :date="appointment.endDate"
+          :date-label="$t('appointment-edit.end-date')"
+          :date-rules="endDateRules"
+          :time-label="$t('appointment-edit.end-time')"
+          :time-rules="endTimeRules"
+          @update:date="(endDate: string) => appointment.endDate = endDate"
+          class="q-pb-md"
+        />
 
         <!-- APPOINTMENT TYPE -->
 
@@ -74,28 +92,49 @@
 
 <script setup lang="ts">
 import {CalendarModel} from 'src/models/CalendarModel';
-import {ref} from 'vue';
+import {reactive, ref} from 'vue';
 import {AppointmentModel} from 'src/models/AppointmentModel';
 import {Priority} from 'src/enums/Priority';
 import {useI18n} from 'vue-i18n';
+import DateTimeInput from 'components/inputs/DateTimeInput.vue';
+import {ValidationUtils} from 'src/utils/ValidationUtils';
 
 // Initialize helpers
 const i18n = useI18n();
+const validationUtils = new ValidationUtils();
 
 // Initialize local variables
 const dialog = ref(false);
-const appointment = ref(new AppointmentModel());
-let calendar = new CalendarModel();
+const appointment = reactive(new AppointmentModel());
+const startDateRules = [
+  () => validationUtils.isDateStringValid(appointment.startDate),
+  () => validationUtils.isStartBeforeEnd(appointment.startDate, appointment.endDate)
+];
+const startTimeRules = [
+  () => validationUtils.isDateStringValid(appointment.startDate),
+  () => typeof validationUtils.isStartBeforeEnd(appointment.startDate, appointment.endDate) === 'string'
+    ? '' : true
+];
+const endDateRules = [
+  () => validationUtils.isDateStringValid(appointment.endDate),
+  () => validationUtils.isEndAfterStart(appointment.endDate, appointment.startDate)
+]
+const endTimeRules = [
+  () => validationUtils.isDateStringValid(appointment.endDate),
+  () => typeof validationUtils.isEndAfterStart(appointment.endDate, appointment.startDate) === 'string'
+    ? '' : true
+]
 
 // region EVENTS
 /**
  * Show this dialog and update the local variables with the passed parameters.
  * @param cal This parameter specifies a calendar. The new appointment will be stored in this calendar.
- * @param start This parameter specifies a start date.
+ * @param start This parameter specifies a start date as string.
  */
-function showDialog(cal: CalendarModel, start: Date) {
-  calendar = cal;
-  appointment.value.startDate = start;
+function showDialog(cal: CalendarModel, start: string) {
+  appointment.calendars.push(cal.name);
+  appointment.startDate = start;
+  appointment.endDate = start;
   dialog.value = true;
 }
 
@@ -111,14 +150,15 @@ function hideDialog() {
  * calendar.
  */
 function onSave() {
-  emit('add-appointment', <AppointmentModel> appointment.value)
+  emit('add-appointment', <AppointmentModel>appointment)
   dialog.value = false;
 }
+
 // endregion
 
 // region TEMPLATE METHODS
 function getPriorityStr(prio: Priority) {
-  switch(prio) {
+  switch (prio) {
     case Priority.NO_PRIORITY:
       return i18n.t('priority.no-priority');
     case Priority.VERY_LOW:
@@ -133,6 +173,7 @@ function getPriorityStr(prio: Priority) {
       return i18n.t('priority.very-high');
   }
 }
+
 // endregion
 
 const emit = defineEmits<{

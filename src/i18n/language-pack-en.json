@@ -6,6 +6,7 @@
   "library.save": "Save",
   "library.delete": "Delete",
   "library.apply": "Apply",
+  "library.select": "Select",
 
   "main-calendar.title": "Main calendar",
 
@@ -59,13 +60,24 @@
   "settings.dark-mode.title": "Dark Mode",
   "settings.dark-mode.description": "Activate or deactivate to change the theme of the app.",
 
+  "date.mask": "####/##/##",
   "date.format.short": "YYYY/MM/DD",
+  "date.format.long": "YYYY/MM/DD HH:mm",
   "date.format.short.with-weekdays": "dddd, YYYY/MM/DD",
+  "date-locale.plural-day": "Days",
+  "date-locale.days": "Sunday_Monday_Tuesday_Wednesday_Thursday_Friday_Saturday",
+  "date-locale.days-short": "Sun_Mon_Tue_Wed_Thu_Fri_Sat",
+  "date-locale.months": "January_February_March_April_May_June_July_August_September_October_November_December",
+  "date-locale.months-short": "Jan_Feb_Mar_Apr_May_Jun_Jul_Aug_Sep_Oct_Nov_Dec",
 
   "progress-message.load-calendars": "Loading calendars...",
 
   "error-message.title": "Error",
   "error-message.default": "The system error is unknown.",
   "error-message.error-at-conversion": "An error occurred at the data conversion.",
-  "error-message.cannot-load-calendars": "Cannot load calendars."
+  "error-message.cannot-load-calendars": "Cannot load calendars.",
+
+  "validation-text.enter-valid-date": "Please enter a valid date.",
+  "validation-text.start-must-be-before-end": "The start date must be before the end date.",
+  "validation-text.end-must-be-after-start": "The end date must be after the start date."
 }

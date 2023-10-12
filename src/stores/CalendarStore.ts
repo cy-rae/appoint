@@ -11,7 +11,7 @@ export const useCalendarStore = defineStore('CalendarStore', () => {
   const id = ref(0);
   const name = ref('');
   const description = ref('');
-  const category = ref('');
+  const color = ref('');
   const appointments: Ref<AppointmentModel[]> = ref([]);
   // endregion
 
@@ -21,7 +21,7 @@ export const useCalendarStore = defineStore('CalendarStore', () => {
     cal.id = id.value;
     cal.name = name.value;
     cal.description = description.value;
-    cal.color = category.value;
+    cal.color = color.value;
     cal.appointments = appointments.value
     return cal;
   })
@@ -32,7 +32,7 @@ export const useCalendarStore = defineStore('CalendarStore', () => {
     id.value = 0;
     name.value = '';
     description.value = '';
-    category.value = '';
+    color.value = '';
     appointments.value = [];
   }
   // endregion
@@ -42,7 +42,7 @@ export const useCalendarStore = defineStore('CalendarStore', () => {
     id,
     name,
     description,
-    category,
+    color,
     appointments,
 
     // GETTERS

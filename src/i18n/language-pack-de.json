@@ -6,6 +6,7 @@
   "library.save": "Speichern",
   "library.delete": "Löschen",
   "library.apply": "Übernehmen",
+  "library.select": "Auswählen",
 
   "main-calendar.title": "Hauptkalender",
 
@@ -59,13 +60,24 @@
   "settings.dark-mode.title": "Dark Mode",
   "settings.dark-mode.description": "Aktiviere oder deaktiviere den Dark Mode, um das Theme der App zu ändern.",
 
+  "date.mask": "##.##.####",
   "date.format.short": "DD.MM.YYYY",
+  "date.format.long": "DD.MM.YYYY HH:mm",
   "date.format.short.with-weekdays": "dddd, DD.MM.YYYY",
+  "date-locale.plural-day": "Tage",
+  "date-locale.days": "Sonntag_Montag_Dienstag_Mittwoch_Donnerstag_Freitag_Samstag",
+  "date-locale.days-short": "So_Mo_Di_Mi_Do_Fr_Sa",
+  "date-locale.months": "Januar_Februar_März_April_Mai_Juni_Juli_August_September_Oktober_November_Dezember",
+  "date-locale.months-short": "Jan_Feb_Mär_Apr_Mai_Jun_Jul_Aug_Sep_Okt_Nov_Dez",
 
   "progress-message.load-calendars": "Die Kalender werden geladen...",
 
   "error-message.title": "Fehler",
   "error-message.default": "Der Systemfehler ist unbekannt.",
   "error-message.error-at-conversion": "Es ist ein Fehler bei der Datenkonvertierung aufgetreten.",
-  "error-message.cannot-load-calendars": "Die Kalender konnten nicht geladen werden."
+  "error-message.cannot-load-calendars": "Die Kalender konnten nicht geladen werden.",
+
+  "validation-text.enter-valid-date": "Bitte geben Sie ein gültiges Datum ein.",
+  "validation-text.start-must-be-before-end": "Das Startdatum muss vor dem Enddatum liegen.",
+  "validation-text.end-must-be-after-start": "Das Enddatum muss nach dem Startdatum liegen."
 }
