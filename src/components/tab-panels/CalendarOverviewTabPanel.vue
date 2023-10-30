@@ -2,6 +2,10 @@
   <div class="row full-width q-pb-sm">
     <div id="newCalendarDivId" class="col text-right">
       <q-btn
+        @click="onFilterCalendarClick"
+        icon="filter_list" color="primary" text-color="secondary" no-caps round class="q-mr-sm"
+      />
+      <q-btn
         @click="onNewCalendarClick"
         icon="add" color="primary" text-color="secondary" no-caps round
       />

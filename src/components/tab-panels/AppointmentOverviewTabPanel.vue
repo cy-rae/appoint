@@ -2,6 +2,10 @@
   <div class="row full-width q-pb-sm">
     <div id="newAppointmentDivId" class="col text-right">
       <q-btn
+        @click="onFilterAppointmentClick"
+        icon="filter_list" color="primary" text-color="secondary" no-caps round class="q-mr-sm"
+      />
+      <q-btn
         @click="onNewAppointmentClick"
         icon="add" color="primary" text-color="secondary" no-caps round
       />

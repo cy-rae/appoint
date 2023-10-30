@@ -1,6 +1,6 @@
 import {defineStore} from 'pinia';
 import {AppointmentModel} from 'src/models/AppointmentModel';
-import {App, computed, ComputedRef, Ref, ref} from 'vue';
+import {computed, ComputedRef, Ref, ref} from 'vue';
 import {CalendarModel} from 'src/models/CalendarModel';
 
 /**

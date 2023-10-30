@@ -1,6 +1,34 @@
 # Appoint (appoint)
 
-An android calendar app.
+Appoint is a calendar app developed by [cy-rae](https://github.com/cy-rae) in the programming language TypeScript with the Vue.js, Quasar and Cordova frameworks.
+With Appoint you can manage all your appointments in multiple calendars locally on your phone.
+
+## Content
+
+### Manage your favorite calendars
+![img_3.png](docu-img/favorite-calendars.png)
+
+### View ALL appointments in your main calendar
+![img_6.png](docu-img/main-calendar.png)
+
+### List and filter all of your appointments and calendars
+![img.png](docu-img/appointment-overview.png)
+![img.png](docu-img/calendar-overview.png)
+
+### Create or edit calendars and appointments
+![img_1.png](docu-img/create-new-calendar.png)
+
+### Configure your start page
+![img.png](docu-img/start-page.png)
+
+### Configure the language
+![img.png](docu-img/language-settings.png)
+
+### Switch to dark mode
+![img.png](docu-img/dark-mode.png)
+![img.png](docu-img/dark-mode-2.png)
+
+Background image source: [Pexels](https://www.pexels.com/de-de/foto/kaffee-tisch-herbst-dekoration-9622379/)
 
 ## Install the dependencies
 ```bash
