@@ -12,9 +12,29 @@
       <q-item class="q-pa-none">
         <q-card class="q-pa-sm bg-secondary text-primary" style="width: 100%">
           <q-card-section>
-            {{appointment.title}}
-          </q-card-section>
-          <q-card-section>
+            <!-- APPOINTMENT TITLE -->
+            <div class="row lg-font-size text-bold q-pb-md">
+              <div class="col">
+                {{ appointment.title }}
+              </div>
+
+              <div v-if="appointment.priority === Priority.VERY_HIGH">!!</div>
+              <div v-if="appointment.priority === Priority.HIGH">!</div>
+            </div>
+
+            <!-- APPOINTMENT START -->
+            <div class="row">
+              <div class="text-bold q-pr-md">{{ $t('library.start') }}</div>
+              {{ appointment.startDate }}
+            </div>
+
+            <!-- APPOINTMENT END -->
+            <div class="row">
+              <div class="text-bold q-pr-md">{{ $t('library.end') }}</div>
+              {{ appointment.endDate }}
+            </div>
+
+            <!-- APPOINTMENT NOTES -->
             {{ appointment.notes }}
           </q-card-section>
         </q-card>
@@ -63,6 +83,7 @@ import {useQuasar} from 'quasar';
 import InfoCard from 'components/cards/InfoCard.vue';
 import {CalendarModel} from 'src/models/CalendarModel';
 import {AppointmentModel} from 'src/models/AppointmentModel';
+import {Priority} from 'src/enums/Priority';
 
 // Instantiate helpers and stores
 const q = useQuasar();
@@ -74,6 +95,7 @@ interface Props {
   appointments: AppointmentModel[],
   noAppointmentText?: string
 }
+
 const props = defineProps<Props>();
 
 // Instantiate template variables

@@ -9,11 +9,13 @@ import {useSettingsStore} from 'stores/SettingsStore';
 import {useQuasar} from 'quasar';
 import {useI18n} from 'vue-i18n';
 import {ThemeUtils} from 'src/utils/ThemeUtils';
+import {TestDataUtils} from 'src/utils/TestDataUtils';
 
 // Initialize helpers
 const q = useQuasar();
 const i18n = useI18n();
 const settingsStore = useSettingsStore();
+const testDataUtils = new TestDataUtils();
 const languageUtils = new LanguageUtils();
 const themeUtils = new ThemeUtils();
 
@@ -45,6 +47,9 @@ onMounted(async () => {
     await languageUtils.loadQuasarLanguagePack(settingsStore.locale);
   if(isThemeInconsistent.value)
     themeUtils.changeTheme();
+
+  // Load test data
+  testDataUtils.initializeStoreWithTestData();
 });
 // endregion
 

@@ -37,7 +37,7 @@
           :date-rules="startDateRules"
           :time-label="$t('appointment-edit.start-time')"
           :time-rules="startTimeRules"
-          @update:date="(startDate: string) => appointment.startDate = startDate"
+          @update:date="(dateVal: string) => appointment.startDate = dateVal"
           class="q-pb-md"
         />
 
@@ -48,7 +48,7 @@
           :date-rules="endDateRules"
           :time-label="$t('appointment-edit.end-time')"
           :time-rules="endTimeRules"
-          @update:date="(endDate: string) => appointment.endDate = endDate"
+          @update:date="(dateVal: string) => appointment.endDate = dateVal"
           class="q-pb-md"
         />
 
@@ -92,38 +92,40 @@
 
 <script setup lang="ts">
 import {CalendarModel} from 'src/models/CalendarModel';
-import {reactive, ref} from 'vue';
+import {computed, ref} from 'vue';
 import {AppointmentModel} from 'src/models/AppointmentModel';
 import {Priority} from 'src/enums/Priority';
 import {useI18n} from 'vue-i18n';
 import DateTimeInput from 'components/inputs/DateTimeInput.vue';
 import {ValidationUtils} from 'src/utils/ValidationUtils';
+import {DateUtils} from 'src/utils/DateUtils';
 
 // Initialize helpers
 const i18n = useI18n();
+const dateUtils = new DateUtils();
 const validationUtils = new ValidationUtils();
 
 // Initialize local variables
 const dialog = ref(false);
-const appointment = reactive(new AppointmentModel());
-const startDateRules = [
-  () => validationUtils.isDateStringValid(appointment.startDate),
-  () => validationUtils.isStartBeforeEnd(appointment.startDate, appointment.endDate)
-];
-const startTimeRules = [
-  () => validationUtils.isDateStringValid(appointment.startDate),
-  () => typeof validationUtils.isStartBeforeEnd(appointment.startDate, appointment.endDate) === 'string'
-    ? '' : true
-];
-const endDateRules = [
-  () => validationUtils.isDateStringValid(appointment.endDate),
-  () => validationUtils.isEndAfterStart(appointment.endDate, appointment.startDate)
-]
-const endTimeRules = [
-  () => validationUtils.isDateStringValid(appointment.endDate),
-  () => typeof validationUtils.isEndAfterStart(appointment.endDate, appointment.startDate) === 'string'
-    ? '' : true
-]
+const appointment = ref(new AppointmentModel());
+const startDateRules = computed(() => [
+  () => validationUtils.isDateStringValid(appointment.value.startDate),
+  () => validationUtils.isStartDateBeforeEndEnd(appointment.value.startDate, appointment.value.endDate)
+]);
+const startTimeRules = computed(() => [
+  () => validationUtils.isTimeStringValid(dateUtils.adjustFormat(appointment.value.startDate, dateUtils.TIME_FORMAT) || '')
+    ? true : '',
+  () => validationUtils.isStartBeforeEnd(appointment.value.startDate, appointment.value.endDate) ? true : ''
+]);
+const endDateRules = computed(() => [
+  () => validationUtils.isDateStringValid(appointment.value.endDate),
+  () => validationUtils.isEndDateAfterStartDate(appointment.value.endDate, appointment.value.startDate)
+]);
+const endTimeRules = computed(() => [
+  () => validationUtils.isTimeStringValid(dateUtils.adjustFormat(appointment.value.endDate, dateUtils.TIME_FORMAT) || '')
+    ? true : '',
+  () => validationUtils.isEndAfterStart(appointment.value.endDate, appointment.value.startDate) ? true : ''
+]);
 
 // region EVENTS
 /**
@@ -132,9 +134,9 @@ const endTimeRules = [
  * @param start This parameter specifies a start date as string.
  */
 function showDialog(cal: CalendarModel, start: string) {
-  appointment.calendars.push(cal.name);
-  appointment.startDate = start;
-  appointment.endDate = start;
+  appointment.value.calendars.push(cal.name);
+  appointment.value.startDate = start;
+  appointment.value.endDate = start;
   dialog.value = true;
 }
 
@@ -150,7 +152,7 @@ function hideDialog() {
  * calendar.
  */
 function onSave() {
-  emit('add-appointment', <AppointmentModel>appointment)
+  emit('add-appointment', <AppointmentModel>appointment.value)
   dialog.value = false;
 }
 

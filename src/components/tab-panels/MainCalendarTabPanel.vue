@@ -1,6 +1,6 @@
 <template>
   <!-- CALENDAR NAME -->
-  <div class="text-cursive text-bold text-primary xl-font-size bg-secondary q-mb-sm q-py-xs q-pl-sm" style="border-radius: 6px;">
+  <div id="mainCalendarTitleId" class="text-cursive text-bold text-primary xl-font-size bg-secondary q-mb-sm q-pl-sm" style="border-radius: 6px;">
     {{$t('main-calendar.title')}}
   </div>
 
@@ -37,19 +37,32 @@
 import {computed, onMounted, Ref, ref} from 'vue';
 import {DateUtils} from 'src/utils/DateUtils';
 import AppointmentsScrollArea from 'components/scroll-areas/AppointmentsScrollArea.vue';
+import {useDataStore} from 'stores/DataStore';
+import {ComputedRef} from 'vue/dist/vue';
 import {AppointmentModel} from 'src/models/AppointmentModel';
 
 // Instantiate helpers
 const dateUtils = new DateUtils();
+const dataStore = useDataStore();
 
 // Initialize template variables.
 const selectedDate = ref('');
 const dateMask = computed(() => dateUtils.DATE_FORMAT_SHORT());
-const events: Ref<string[]> = ref([]);
+const events: Ref<string[]> = computed(() => dateUtils.computeEvents(dataStore.appointments));
+const appointmentList: ComputedRef<AppointmentModel[]> = computed(() => {
+  // Get selected date as date object.
+  const targetDate: Date = dateUtils.stringToDate(selectedDate.value, dateUtils.DATE_FORMAT_SHORT());
+
+  // Return all appointments of the current calendar that take place on the selected day.
+  return dataStore.appointments.filter((appointment) => {
+    const start = dateUtils.getStartOfDay(appointment.startDate);
+    const end = dateUtils.getEndOfDay(appointment.endDate);
+    return start.getTime() <= targetDate.getTime() && end.getTime() >= targetDate.getTime();
+  }) || [];
+});
 
 // Initialize scroll area variables
 const scrollAreaHeight = ref(document.body.offsetHeight * 0.35);
-const appointmentList: Ref<AppointmentModel[]> = ref([]);
 
 // region INITIALIZATION
 /**
@@ -61,7 +74,6 @@ onMounted(() => {
 
   // Calculate the height of the scroll area and load all appointments that are taking place on the selected month.
   calculateScrollAreaHeight();
-  loadAppointmentsOfSelectedMonth();
 });
 
 /**
@@ -69,27 +81,16 @@ onMounted(() => {
  */
 function calculateScrollAreaHeight() {
   // Get button that is over scroll area.
+  const mainCalendarTitleElement = document.getElementById('mainCalendarTitleId');
   const mainCalendarElement = document.getElementById('mainCalendarId');
   const newAppointmentDivElement = document.getElementById('newAppointmentDivId');
-  if(mainCalendarElement && newAppointmentDivElement) {
-    // Height = body height - footer height - header height - calendar height - button div height - tab panel padding
-    scrollAreaHeight.value = document.body.offsetHeight * 0.83 - mainCalendarElement.offsetHeight
-      - newAppointmentDivElement.offsetHeight - 32;
-  }
-}
 
-/**
- * TODO: Load all appointments that are taking place in the selected month.
- */
-function loadAppointmentsOfSelectedMonth() {
-  const tmpList: AppointmentModel[] = [];
-  for(let i = 0; i < 15; i++) {
-    const appointment = new AppointmentModel();
-    appointment.id = i;
-    appointment.title = 'APPOINTMENT ' + i.toString();
-    tmpList.push(appointment);
+  if(mainCalendarTitleElement && mainCalendarElement && newAppointmentDivElement) {
+    // Height = body height - footer height - header height - calendar height - button div height - tab panel padding
+    scrollAreaHeight.value = document.body.offsetHeight * 0.83 - mainCalendarTitleElement.offsetHeight
+      - mainCalendarElement.offsetHeight - newAppointmentDivElement.offsetHeight - 32;
+    console.log(mainCalendarElement.offsetHeight + newAppointmentDivElement.offsetHeight + 32)
   }
-  appointmentList.value = tmpList;
 }
 // endregion
 
@@ -101,7 +102,7 @@ function loadAppointmentsOfSelectedMonth() {
  */
 function onNavigationClick(view: { year: number, month: number }) {
   // Parse current date string into a date.
-  let newDate: Date | null = dateUtils.stringToDate(selectedDate.value);
+  let newDate: Date | null = dateUtils.stringToDate(selectedDate.value, dateUtils.DATE_FORMAT_SHORT());
 
   // If parsing is not successful, the method will return. Thus, the current selected date will not change.
   if (!newDate) {
@@ -129,7 +130,7 @@ function onNewAppointmentClick(){
  * @param eventDate
  */
 function computeCalendarDayColor(eventDate: string) {
-  const dateVal = dateUtils.stringToDate(selectedDate.value);
+  const dateVal = dateUtils.stringToDate(selectedDate.value, dateUtils.DATE_FORMAT_SHORT());
   const s = dateUtils.adjustFormat(dateVal, dateUtils.DATE_FORMAT_EVENT)
   if (eventDate === s) {
     return 'warning';

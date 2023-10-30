@@ -11,6 +11,7 @@
   <!-- SCROLL AREA WITH ALL CALENDARS -->
   <calendars-scroll-area/>
 </template>
+
 <script setup lang="ts">
 import CalendarsScrollArea from 'components/scroll-areas/CalendarScrollArea.vue';
 import {useRouter} from 'vue-router';

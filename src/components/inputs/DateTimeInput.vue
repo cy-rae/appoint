@@ -5,7 +5,7 @@
       <date-input
         :date="dateStr"
         :label="props.dateLabel"
-        :rules="props.dateRules"
+        :rules="dateRules"
         @update:date="onUpdateDate"
       />
     </div>
@@ -15,7 +15,7 @@
     <time-input
       :time="timeStr"
       :label="props.timeLabel"
-      :rules="props.timeRules"
+      :rules="timeRules"
       @update:time="onUpdateTime"
     />
     </div>
@@ -54,7 +54,7 @@ const timeStr = computed(() => dateUtils.adjustFormat(dateTime.value, dateUtils.
  */
 function onUpdateDate(newDateStr: string) {
   // Get new and old date values as strings.
-  let newDate = dateUtils.stringToDate(newDateStr);
+  let newDate = dateUtils.stringToDate(newDateStr, dateUtils.DATE_FORMAT_SHORT());
   const oldDate = dateUtils.stringToDate(dateTime.value, dateUtils.DATE_FORMAT_LONG());
 
   // Set the time of the old date on the new date.

@@ -208,7 +208,7 @@ async function onDone() {
  */
 function onNavigationClick(view: { year: number, month: number }) {
   // Parse current date string into a date.
-  let newDate: Date | null = dateUtils.stringToDate(selectedDate.value);
+  let newDate: Date | null = dateUtils.stringToDate(selectedDate.value, dateUtils.DATE_FORMAT_SHORT());
 
   // If parsing is not successful, the method will return. Thus, the current selected date will not change.
   if (!newDate) {
@@ -231,7 +231,7 @@ function onNavigationClick(view: { year: number, month: number }) {
  */
 function onNewAppointmentClick() {
   // Get the selected date with the current time as string.
-  let startDate = dateUtils.stringToDate(selectedDate.value);
+  let startDate = dateUtils.stringToDate(selectedDate.value, dateUtils.DATE_FORMAT_SHORT());
   const currentTime = new Date();
   startDate = dateUtils.adjustTime(startDate, currentTime);
   const startDateStr = dateUtils.adjustFormat(startDate, dateUtils.DATE_FORMAT_LONG());
@@ -247,7 +247,7 @@ function onNewAppointmentClick() {
  * @param eventDate
  */
 function computeCalendarDayColor(eventDate: string) {
-  const dateVal = dateUtils.stringToDate(selectedDate.value);
+  const dateVal = dateUtils.stringToDate(selectedDate.value, dateUtils.DATE_FORMAT_SHORT());
   const s = dateUtils.adjustFormat(dateVal, dateUtils.DATE_FORMAT_EVENT)
   if (eventDate === s) {
     return 'warning';

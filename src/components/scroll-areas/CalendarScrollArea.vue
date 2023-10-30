@@ -12,10 +12,27 @@
       <q-item class="q-pa-none">
         <q-card class="q-pa-sm bg-secondary text-primary" style="width: 100%">
           <q-card-section>
-            {{calendar.name}}
-          </q-card-section>
-          <q-card-section>
-            {{ calendar.color }}
+            <div class="row lg-font-size text-bold q-pb-md">
+              <!-- CALENDAR TITLE -->
+              <div class="col q-my-auto">
+                {{calendar.name}}
+
+                <!-- FAVORITE ICON -->
+                <q-icon
+                  v-if='calendar.favorite'
+                  name="star" size="sm" class="q-mb-sm"
+                />
+              </div>
+
+              <!-- BOOKMARK ICON -->
+              <q-icon
+                v-if='calendar.color'
+                :style="!!calendar.color ? {color: calendar.color} : {}"
+                name="bookmark" style="margin-top: -30px" size="lg"
+              />
+            </div>
+
+            {{ calendar.description }}
           </q-card-section>
         </q-card>
       </q-item>
@@ -61,10 +78,12 @@ import {useI18n} from 'vue-i18n';
 import {useQuasar} from 'quasar';
 import InfoCard from 'components/cards/InfoCard.vue';
 import {CalendarModel} from 'src/models/CalendarModel';
+import {useDataStore} from 'stores/DataStore';
 
 // Instantiate helpers and stores
 const q = useQuasar();
 const i18n = useI18n({useScope: 'global'});
+const dataStore = useDataStore();
 
 // Instantiate template variables
 const calendarList: Ref<CalendarModel[]> = ref([]);
@@ -86,13 +105,8 @@ onMounted(async () => {
   // Calculate the height of the scroll area.
   calculateScrollAreaHeight();
 
-  // TODO: Get calendars.
-  for(let i = 0; i < 15; i++) {
-    const cal = new CalendarModel();
-    cal.id = i;
-    cal.name = 'Calendar ' + i.toString();
-    calendarList.value.push(cal);
-  }
+  // Get all calendars
+  calendarList.value = dataStore.calendars;
 });
 
 /**

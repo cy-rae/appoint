@@ -1,6 +1,7 @@
 import {useI18n} from 'vue-i18n';
 import {date, useQuasar} from 'quasar';
 import {ErrorMessageUtils} from 'src/utils/ErrorMessageUtils';
+import {AppointmentModel} from 'src/models/AppointmentModel';
 
 export class DateUtils {
   private _q = useQuasar();
@@ -21,7 +22,7 @@ export class DateUtils {
    * @param {*} dateTimeFormat Format of date/time
    * @returns a date/time object
    */
-  stringToDate(dateValueString: string | undefined | null, dateTimeFormat = this.DATE_FORMAT_SHORT()): Date {
+  stringToDate(dateValueString: string | undefined | null, dateTimeFormat: string): Date {
     return date.extractDate(dateValueString || '', dateTimeFormat);
   }
 
@@ -44,7 +45,10 @@ export class DateUtils {
    * Get the start of the passed date by setting all time values to zero.
    * @param dateVal This parameter specifies the date value that will be edited.
    */
-  getStartOfDay(dateVal: Date) {
+  getStartOfDay(dateVal: Date | string) {
+    if(typeof dateVal === 'string')
+      dateVal = this.stringToDate(dateVal, this.DATE_FORMAT_LONG());
+
     return date.adjustDate(dateVal, {
       hours: 0,
       minutes: 0,
@@ -57,7 +61,10 @@ export class DateUtils {
    * Get the end of the passed date by setting all time values to their max.
    * @param dateVal This parameter specifies the date value that will be edited.
    */
-  getEndOfDay(dateVal: Date) {
+  getEndOfDay(dateVal: Date | string) {
+    if(typeof dateVal === 'string')
+      dateVal = this.stringToDate(dateVal, this.DATE_FORMAT_LONG());
+
     return date.adjustDate(dateVal, {
       hours: 23,
       minutes: 59,
@@ -107,5 +114,22 @@ export class DateUtils {
       seconds: timeVal.getSeconds(),
       milliseconds: timeVal.getMilliseconds(),
     });
+  }
+
+  /**
+   * Compute the event dates of the passed appointments.
+   * @param appointments
+   */
+  computeEvents(appointments: AppointmentModel[]) {
+    const events: string[] = [];
+
+    appointments.forEach((appointment: AppointmentModel) => {
+      const start = this.stringToDate(appointment.startDate, this.DATE_FORMAT_LONG());
+      const end = this.stringToDate(appointment.endDate, this.DATE_FORMAT_LONG());
+      const appointmentEvents: string[] = this.getEventsOfTimeSpan(start, end);
+      events.push(...appointmentEvents);
+    });
+
+    return events;
   }
 }

@@ -7,6 +7,8 @@
   "library.delete": "Löschen",
   "library.apply": "Übernehmen",
   "library.select": "Auswählen",
+  "library.start": "Start: ",
+  "library.end": "Ende: ",
 
   "main-calendar.title": "Hauptkalender",
 

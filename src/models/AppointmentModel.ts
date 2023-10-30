@@ -1,30 +1,18 @@
 import {Priority} from 'src/enums/Priority';
 
 export class AppointmentModel {
-  private _id: number;
   private _title: string;
   private _notes: string;
   private _startDate: string;
   private _endDate: string;
   private _priority: Priority;
-  private _calendars: string[];
 
-  constructor() {
-    this._id = 0;
-    this._title = '';
-    this._notes = '';
-    this._startDate = '';
-    this._endDate = '';
-    this._priority = Priority.NO_PRIORITY;
-    this._calendars = [];
-  }
-
-  get id(): number {
-    return this._id;
-  }
-
-  set id(value: number) {
-    this._id = value;
+  constructor(title?: string, notes?: string, startDate?: string, endDate?: string, priority?: Priority) {
+    this._title = title || '';
+    this._notes = notes || '';
+    this._startDate = startDate || '';
+    this._endDate = endDate || '';
+    this._priority = priority || Priority.NO_PRIORITY;
   }
 
   get title(): string {
@@ -65,13 +53,5 @@ export class AppointmentModel {
 
   set priority(value: Priority) {
     this._priority = value;
-  }
-
-  get calendars(): string[] {
-    return this._calendars;
-  }
-
-  set calendars(value: string[]) {
-    this._calendars = value;
   }
 }

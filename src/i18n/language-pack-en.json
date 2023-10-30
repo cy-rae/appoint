@@ -7,6 +7,8 @@
   "library.delete": "Delete",
   "library.apply": "Apply",
   "library.select": "Select",
+  "library.start": "Start: ",
+  "library.end": "End: ",
 
   "main-calendar.title": "Main calendar",
 

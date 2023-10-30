@@ -4,13 +4,16 @@ export class CalendarModel {
   private _name: string;
   private _description: string;
   private _color: string;
+  private _favorite: boolean;
   private _appointments: AppointmentModel[];
 
-  constructor() {
-    this._name = '';
-    this._description = '';
-    this._color = '';
-    this._appointments = [];
+  constructor(name?: string, description?: string, color?: string, favorite?: boolean,
+              appointments?: AppointmentModel[]) {
+    this._name = name || '';
+    this._description = description || '';
+    this._color = color || '';
+    this._favorite = favorite || false;
+    this._appointments = appointments || [];
   }
 
   get name(): string {
@@ -35,6 +38,14 @@ export class CalendarModel {
 
   set color(value: string) {
     this._color = value;
+  }
+
+  get favorite(): boolean {
+    return this._favorite;
+  }
+
+  set favorite(value: boolean) {
+    this._favorite = value;
   }
 
   get appointments(): AppointmentModel[] {

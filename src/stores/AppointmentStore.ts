@@ -2,15 +2,11 @@ import {defineStore} from 'pinia';
 import {AppointmentModel} from 'src/models/AppointmentModel';
 import {computed, ref} from 'vue';
 import {Priority} from 'src/enums/Priority';
-import {DateUtils} from 'src/utils/DateUtils';
 
 /**
  * This pinia store is responsible for storing calendar data.
  */
 export const useAppointmentStore = defineStore('AppointmentStore', () => {
-  // Initialize helpers.
-  const dateUtils = new DateUtils();
-
   // region STATES
   const title = ref('');
   const notes = ref('');
@@ -24,13 +20,13 @@ export const useAppointmentStore = defineStore('AppointmentStore', () => {
    * Get an instance of the appointment with the state variables as properties.
    */
   const appointment = computed(() => {
-    const cal = new AppointmentModel();
-    cal.title = title.value;
-    cal.notes = notes.value;
-    cal.priority = priority.value;
-    cal.startDate = dateUtils.stringToDate(startDate.value);
-    cal.endDate = dateUtils.stringToDate(endDate.value);
-    return cal;
+    const a = new AppointmentModel();
+    a.title = title.value;
+    a.notes = notes.value;
+    a.priority = priority.value;
+    a.startDate = startDate.value;
+    a.endDate = endDate.value;
+    return a;
   })
   // endregion
 

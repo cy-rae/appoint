@@ -18,7 +18,12 @@
 import AppointmentsScrollArea from 'components/scroll-areas/AppointmentsScrollArea.vue';
 import {onMounted, Ref, ref} from 'vue';
 import {AppointmentModel} from 'src/models/AppointmentModel';
+import {useDataStore} from 'stores/DataStore';
 
+// Initialize helpers
+const dataStore = useDataStore();
+
+// Initialize local variables.
 const scrollAreaHeight = ref(document.body.offsetHeight * 0.7);
 const appointmentList: Ref<AppointmentModel[]> = ref([]);
 
@@ -27,7 +32,7 @@ const appointmentList: Ref<AppointmentModel[]> = ref([]);
  */
 onMounted(() => {
   calculateScrollAreaHeight();
-  loadAppointments();
+  appointmentList.value = dataStore.appointments;
 });
 
 /**
@@ -40,18 +45,6 @@ function calculateScrollAreaHeight() {
     // Height = body height - footer height - header height - button div height - tab panel padding
     scrollAreaHeight.value = document.body.offsetHeight * 0.83 - newCalendarDivElement.offsetHeight - 32;
   }
-}
-
-function loadAppointments() {
-  const tmpList: AppointmentModel[] = [];
-  // TODO: Load the next 25 appointments.
-  for(let i = 0; i < 15; i++) {
-    const appointment = new AppointmentModel();
-    appointment.id = i;
-    appointment.title = 'APPOINTMENT ' + i.toString();
-    tmpList.push(appointment);
-  }
-  appointmentList.value = tmpList;
 }
 
 /**

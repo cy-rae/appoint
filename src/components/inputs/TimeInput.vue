@@ -5,7 +5,7 @@
     :label="label"
     :rules="props.rules"
     @update:model-value="onUpdateInputTime"
-    mask="time" color="accent" filled
+    mask="time" color="accent" filled fill-mask="#"
   >
     <template v-slot:append>
       <q-btn @click="showClock = true" icon="schedule" color="transparent" text-color="accent" dense round unelevated/>

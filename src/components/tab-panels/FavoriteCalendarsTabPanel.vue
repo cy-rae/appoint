@@ -1,5 +1,5 @@
 <template>
-  <q-card v-if="!favoriteCalendars || !favoriteCalendars.length" class="bg-secondary lg-font-size">
+  <q-card v-if="!favoriteCalendars || !favoriteCalendars.length" id="calendarTitleId" class="bg-secondary lg-font-size">
     <q-card-section>
       {{ $t('favorite-calendar.no-favorite-calendars') }}
     </q-card-section>
@@ -52,22 +52,21 @@
 </template>
 
 <script setup lang="ts">
-
-import {computed, ComputedRef, onMounted, Ref, ref} from 'vue';
+import {computed, ComputedRef, nextTick, onMounted, Ref, ref} from 'vue';
 import {DateUtils} from 'src/utils/DateUtils';
 import AppointmentsScrollArea from 'components/scroll-areas/AppointmentsScrollArea.vue';
 import {AppointmentModel} from 'src/models/AppointmentModel';
 import {CalendarModel} from 'src/models/CalendarModel';
-import InfoDialog from 'components/dialogs/InfoDialog.vue';
 import CalendarTitleLabel from 'components/labels/CalendarTitleLabel.vue';
+import {useDataStore} from 'stores/DataStore';
 
 // Instantiate helpers
+const dataStore = useDataStore();
 const dateUtils = new DateUtils();
 
 // Initialize template variables.
 const tab = ref(0);
 const favoriteCalendars: Ref<CalendarModel[]> = ref([]);
-const onShowDescription = ref(false);
 const selectedDate = ref('');
 const dateMask = computed(() => dateUtils.DATE_FORMAT_SHORT());
 
@@ -75,7 +74,7 @@ const dateMask = computed(() => dateUtils.DATE_FORMAT_SHORT());
 const scrollAreaHeight = ref(document.body.offsetHeight * 0.35);
 const appointmentList: ComputedRef<AppointmentModel[]> = computed(() => {
   // Get selected date as date object.
-  const targetDate: Date = dateUtils.stringToDate(selectedDate.value);
+  const targetDate: Date = dateUtils.stringToDate(selectedDate.value, dateUtils.DATE_FORMAT_SHORT());
 
   // Return all appointments of the current calendar that take place on the selected day.
   return favoriteCalendars.value[tab.value]?.appointments.filter((appointment) => {
@@ -94,21 +93,10 @@ onMounted(() => {
   selectedDate.value = dateUtils.adjustFormat(new Date()) || '';
 
   // Calculate the height of the scroll area and load all appointments that are taking place on the selected month.
-  calculateScrollAreaHeight();
+  nextTick(() => calculateScrollAreaHeight());
 
-  // TODO: Load favorite calendars.
-  favoriteCalendars.value.push(new CalendarModel());
-  favoriteCalendars.value.push(new CalendarModel());
-  favoriteCalendars.value.push(new CalendarModel());
-  const appointment = new AppointmentModel();
-  appointment.title = 'TEST TITLE';
-  appointment.notes = 'TEST DESCRIPTION';
-  appointment.startDate = new Date();
-  appointment.endDate = new Date();
-  favoriteCalendars.value[1].appointments.push(appointment)
-  favoriteCalendars.value[1].name = 'Test calendar name'
-  favoriteCalendars.value[1].description = 'Test calendar description'
-  favoriteCalendars.value[1].color = '#a233f5'
+  // Load favorite calendars.
+  favoriteCalendars.value = dataStore.favoriteCalendars;
 });
 
 /**
@@ -116,12 +104,15 @@ onMounted(() => {
  */
 function calculateScrollAreaHeight() {
   // Get button that is over scroll area.
-  const mainCalendarElement = document.getElementById('mainCalendarId');
-  const newAppointmentDivElement = document.getElementById('newAppointmentDivId');
-  if (mainCalendarElement && newAppointmentDivElement) {
+  const calendarTitleElement = document.getElementById('calendarTitleId');
+  const calendarElement = document.getElementById('calendarId');
+  const newAppointmentDivElement = document.getElementById('newBookingButtonDivId');
+
+  if (calendarTitleElement && calendarElement && newAppointmentDivElement) {
     // Height = body height - footer height - header height - calendar height - button div height - tab panel padding
-    scrollAreaHeight.value = document.body.offsetHeight * 0.83 - mainCalendarElement.offsetHeight
-      - newAppointmentDivElement.offsetHeight - 32;
+    scrollAreaHeight.value = document.body.offsetHeight * 0.83 - calendarTitleElement.offsetHeight
+      - calendarElement.offsetHeight - newAppointmentDivElement.offsetHeight - 32;
+    console.log(calendarElement.offsetHeight + newAppointmentDivElement.offsetHeight + 32);
   }
 }
 
@@ -135,7 +126,7 @@ function calculateScrollAreaHeight() {
  */
 function onNavigationClick(view: { year: number, month: number }) {
   // Parse current date string into a date.
-  let newDate: Date | null = dateUtils.stringToDate(selectedDate.value);
+  let newDate: Date | null = dateUtils.stringToDate(selectedDate.value, dateUtils.DATE_FORMAT_SHORT());
 
   // If parsing is not successful, the method will return. Thus, the current selected date will not change.
   if (!newDate) {
@@ -167,12 +158,7 @@ function onNewAppointmentClick() {
  * Get all events of the passed calendar.
  */
 function getAllEventsOfCalendar(calendar: CalendarModel) {
-  const calendarEvents: string[] = [];
-  calendar.appointments.forEach((appointment: AppointmentModel) => {
-    const appointmentEvents = dateUtils.getEventsOfTimeSpan(appointment.startDate, appointment.endDate);
-    calendarEvents.push(...appointmentEvents);
-  });
-  return calendarEvents;
+  return dateUtils.computeEvents(calendar.appointments);
 }
 
 /**
@@ -180,7 +166,7 @@ function getAllEventsOfCalendar(calendar: CalendarModel) {
  * @param eventDate
  */
 function computeCalendarDayColor(eventDate: string) {
-  const dateVal = dateUtils.stringToDate(selectedDate.value);
+  const dateVal = dateUtils.stringToDate(selectedDate.value, dateUtils.DATE_FORMAT_SHORT());
   const s = dateUtils.adjustFormat(dateVal, dateUtils.DATE_FORMAT_EVENT)
   if (eventDate === s) {
     return 'warning';

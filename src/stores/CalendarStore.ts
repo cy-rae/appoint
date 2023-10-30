@@ -8,7 +8,6 @@ import {CalendarModel} from 'src/models/CalendarModel';
  */
 export const useCalendarStore = defineStore('CalendarStore', () => {
   // region STATES
-  const id = ref(0);
   const name = ref('');
   const description = ref('');
   const color = ref('');
@@ -18,7 +17,6 @@ export const useCalendarStore = defineStore('CalendarStore', () => {
   // region GETTERS
   const calendar = computed(() => {
     const cal = new CalendarModel();
-    cal.id = id.value;
     cal.name = name.value;
     cal.description = description.value;
     cal.color = color.value;
@@ -29,7 +27,6 @@ export const useCalendarStore = defineStore('CalendarStore', () => {
 
   // region ACTIONS
   function resetStore() {
-    id.value = 0;
     name.value = '';
     description.value = '';
     color.value = '';
@@ -39,7 +36,6 @@ export const useCalendarStore = defineStore('CalendarStore', () => {
 
   return {
     // STATES
-    id,
     name,
     description,
     color,
